@@ -1,38 +1,232 @@
-.App {
-  text-align: center;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300);
+.mic__head::after {
+  content: "";
+  display: inline-block;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.toggle-label, .round, .recording, .mic__head::after, .mic, svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.frame {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  margin-top: -200px;
+  margin-left: -200px;
+  border-radius: 2px;
+  box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: linear-gradient(45deg, #7B1FA2 50%, #F06292 90%);
+  color: #333;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+input {
+  display: none;
+}
+
+svg {
+  width: 130px;
+  height: 130px;
+  margin-top: -65px;
+  margin-left: -65px;
+}
+svg .circle-svg {
+  stroke: #F5F5F5;
+  stroke-width: 3;
+  fill: transparent;
+}
+
+.mic {
+  width: 85px;
+  height: 85px;
+  margin-top: -42.5px;
+  margin-left: -42.5px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  transition: all 0.3s ease;
+}
+.mic__head {
+  background: linear-gradient(45deg, #E0E0E0 50%, white 50%);
+  width: 25.5px;
+  width: 30px;
+  height: 63.75px;
+  border-radius: 30px;
+}
+.mic__head::after {
+  top: 10%;
+  background: linear-gradient(45deg, #7B1FA2 50%, #F06292 90%);
+  width: 8px;
+  height: 20px;
+  border-radius: inherit;
+  transform: translate(-50%);
+}
+.mic__neck {
+  background: linear-gradient(45deg, #E0E0E0 50%, white 50%);
+  width: 4.25px;
+  height: 17px;
+}
+.mic__leg {
+  background: linear-gradient(45deg, #E0E0E0 50%, white 50%);
+  width: 25.5px;
+  height: 4.25px;
+  border-radius: 50px;
 }
 
-.App-link {
-  color: #61dafb;
+.recording {
+  width: 85px;
+  height: 85px;
+  margin-top: -42.5px;
+  margin-left: -42.5px;
+  transform: scale(0.5);
+  opacity: 0;
+  transition: all 0.3s 0s ease;
 }
 
-@keyframes App-logo-spin {
+.round {
+  background: white;
+  width: 12.75px;
+  height: 12.75px;
+  border-radius: 50%;
+  margin-top: -6.375px;
+  margin-left: -6.375px;
+  -webkit-animation: recording 1s ease-in-out infinite;
+          animation: recording 1s ease-in-out infinite;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.15);
+}
+.round:first-child {
+  left: 20%;
+}
+.round:nth-child(2) {
+  -webkit-animation-delay: 0.15s;
+          animation-delay: 0.15s;
+}
+.round:last-child {
+  left: 80%;
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+
+.toggle-label {
+  display: inline-block;
+  width: 130px;
+  height: 130px;
+  margin-top: -65px;
+  margin-left: -65px;
+  cursor: pointer;
+}
+
+#record-toggle:checked ~ svg {
+  -webkit-animation: spinning 3s ease-in-out infinite alternate;
+          animation: spinning 3s ease-in-out infinite alternate;
+}
+#record-toggle:checked ~ svg .circle-svg {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  -webkit-animation: dash 3s ease-in-out infinite alternate;
+          animation: dash 3s ease-in-out infinite alternate;
+}
+#record-toggle:checked ~ .mic {
+  transform: scale(1.128);
+  -webkit-animation: gone 0.5s 0.3s ease;
+          animation: gone 0.5s 0.3s ease;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+#record-toggle:checked ~ .recording {
+  opacity: 1;
+  transform: scale(0.98);
+  transition-delay: 0.3s;
+}
+.actionbtn{
+  clear: both;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  width: 400px;
+  margin-left: -200px;
+}
+.caption{
+  position: absolute;
+  top: 60%; 
+  left: 50%;
+  width: 400px;
+  margin-left: -200px;
+}
+@-webkit-keyframes spinning {
+  to {
+    transform: rotatez(360deg);
+  }
+}
+
+@keyframes spinning {
+  to {
+    transform: rotatez(360deg);
+  }
+}
+@-webkit-keyframes gone {
+  to {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+@keyframes gone {
+  to {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes recording {
+  0% {
+    transform: translatey(0%);
+  }
+  30% {
+    transform: translatey(-30%);
+  }
+  60% {
+    transform: translatey(30%);
+  }
+  90% {
+    transform: translatey(0%);
+  }
+}
+@keyframes recording {
+  0% {
+    transform: translatey(0%);
+  }
+  30% {
+    transform: translatey(-30%);
+  }
+  60% {
+    transform: translatey(30%);
+  }
+  90% {
+    transform: translatey(0%);
+  }
+}
+@-webkit-keyframes dash {
   from {
-    transform: rotate(0deg);
+    stroke-dashoffset: 300;
   }
   to {
-    transform: rotate(360deg);
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes dash {
+  from {
+    stroke-dashoffset: 300;
+  }
+  to {
+    stroke-dashoffset: 0;
   }
 }
